@@ -1,0 +1,17 @@
+spring:
+  rabbitmq:
+    host: rabbit
+    port: 5672
+    username: guest
+    password: guest
+
+rabbitmq:
+  queue:
+    name: simulator
+  exchange:
+    name: simulator_exchange
+  routing:
+    key: simulator_routingKey
+
+device:
+  id:

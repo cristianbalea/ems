@@ -1,0 +1,47 @@
+server:
+  port: 9092
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9089/realms/ems
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+    url: jdbc:postgresql://localhost:4042/monitor
+
+  flyway:
+    locations: classpath:db/migration
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+jwt:
+  auth:
+    converter:
+      resource-id: ems-monitor
+      principle-attribute: preferred_username
+
+webclient:
+  device: http://localhost:9091
+  keycloak: http://localhost:9089
+
+rabbitmq:
+  queue:
+    name: simulator
+  deviceChanges: device
